@@ -63,18 +63,6 @@ export const getPost = /* GraphQL */ `
         updatedAt
         __typename
       }
-      comments {
-        items {
-          id
-          content
-          createdAt
-          updatedAt
-          postCommentsId
-          __typename
-        }
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       blogPostsId
@@ -99,10 +87,6 @@ export const listPosts = /* GraphQL */ `
           updatedAt
           __typename
         }
-        comments {
-          nextToken
-          __typename
-        }
         createdAt
         updatedAt
         blogPostsId
@@ -113,58 +97,33 @@ export const listPosts = /* GraphQL */ `
     }
   }
 `;
-export const getComment = /* GraphQL */ `
-  query GetComment($id: ID!) {
-    getComment(id: $id) {
+export const getUser = /* GraphQL */ `
+  query GetUser($id: ID!) {
+    getUser(id: $id) {
       id
-      post {
-        id
-        title
-        blog {
-          id
-          name
-          createdAt
-          updatedAt
-          __typename
-        }
-        comments {
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        blogPostsId
-        __typename
-      }
-      content
+      name
+      mail
+      pass
       createdAt
       updatedAt
-      postCommentsId
       __typename
     }
   }
 `;
-export const listComments = /* GraphQL */ `
-  query ListComments(
-    $filter: ModelCommentFilterInput
+export const listUsers = /* GraphQL */ `
+  query ListUsers(
+    $filter: ModelUserFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        post {
-          id
-          title
-          createdAt
-          updatedAt
-          blogPostsId
-          __typename
-        }
-        content
+        name
+        mail
+        pass
         createdAt
         updatedAt
-        postCommentsId
         __typename
       }
       nextToken

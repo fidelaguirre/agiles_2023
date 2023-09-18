@@ -13,11 +13,11 @@ type Post @model {
   id: ID!
   title: String!
   blog: Blog @belongsTo
-  comments: [Comment] @hasMany
 }
 
-type Comment @model {
+type User @model {
   id: ID!
-  post: Post @belongsTo
-  content: String!
+  name: String!
+  mail: String!
+  pass: String!
 }
