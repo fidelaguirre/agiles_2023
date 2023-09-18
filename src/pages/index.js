@@ -2,8 +2,19 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
+import { API, graphqlOperation } from 'aws-amplify';
+
+import { createBlog } from '../graphql/mutations';
 
 const inter = Inter({ subsets: ['latin'] })
+let resp
+
+async function createNewBlog() {
+  const blog = {
+    name: 'Use AppSync',
+  };
+  resp = await API.graphql(graphqlOperation(createBlog, { input: blog }))
+}
 
 export default function Home() {
   return (
@@ -14,6 +25,8 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <a type='button' id="MutationEventButton" onClick={createNewBlog}>Testeando ando</a>
+      <p id="MutationResult">{resp ? resp.data.createBlog.name : ""}</p>
       <main className={`${styles.main} ${inter.className}`}>
         <div className={styles.description}>
           <p>

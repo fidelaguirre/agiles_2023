@@ -10,6 +10,11 @@
       "StackName": "amplify-agiles2023-dev-202317",
       "StackId": "arn:aws:cloudformation:us-east-1:063213850264:stack/amplify-agiles2023-dev-202317/3061eb40-55b1-11ee-a704-0e0de7294027",
       "AmplifyAppId": "d1ya6cvqekq3dy"
+    },
+    "categories": {
+      "api": {
+        "agiles2023": {}
+      }
     }
   }
 }
