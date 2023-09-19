@@ -131,3 +131,84 @@ export const listUsers = /* GraphQL */ `
     }
   }
 `;
+export const getIntegrante = /* GraphQL */ `
+  query GetIntegrante($id: ID!) {
+    getIntegrante(id: $id) {
+      id
+      id_perfil
+      id_banda
+      createdAt
+      updatedAt
+      bandaIntegrantesId
+      __typename
+    }
+  }
+`;
+export const listIntegrantes = /* GraphQL */ `
+  query ListIntegrantes(
+    $filter: ModelIntegranteFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listIntegrantes(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        id_perfil
+        id_banda
+        createdAt
+        updatedAt
+        bandaIntegrantesId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getBanda = /* GraphQL */ `
+  query GetBanda($id: ID!) {
+    getBanda(id: $id) {
+      id
+      name
+      integrantes {
+        items {
+          id
+          id_perfil
+          id_banda
+          createdAt
+          updatedAt
+          bandaIntegrantesId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const listBandas = /* GraphQL */ `
+  query ListBandas(
+    $filter: ModelBandaFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listBandas(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        integrantes {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;

@@ -4,18 +4,16 @@ import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import { API, graphqlOperation } from 'aws-amplify';
 
-import { createBlog, createUser } from '../graphql/mutations';
+import { createBlog, createBanda } from '../graphql/mutations';
 
 const inter = Inter({ subsets: ['latin'] })
 let resp
 
 async function createNewBlog() {
   const user = {
-    name: 'Hola Mundo',
-    mail: 'angus.mcsix@gmail.com',
-    pass: '1234'
+    name: 'Alpha Wolf',
   };
-  resp = await API.graphql(graphqlOperation(createUser, { input: user }))
+  resp = await API.graphql(graphqlOperation(createBanda, { input: user }))
 }
 
 export default function Home() {

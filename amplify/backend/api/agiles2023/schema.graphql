@@ -21,3 +21,15 @@ type User @model {
   mail: String!
   pass: String!
 }
+
+type Integrante @model {
+  id: ID!
+  id_perfil: Int!
+  id_banda: Int!
+}
+
+type Banda @model {
+  id: ID!
+  name: String!
+  integrantes: [Integrante] @hasMany
+}

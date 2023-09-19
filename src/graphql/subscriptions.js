@@ -178,3 +178,120 @@ export const onDeleteUser = /* GraphQL */ `
     }
   }
 `;
+export const onCreateIntegrante = /* GraphQL */ `
+  subscription OnCreateIntegrante(
+    $filter: ModelSubscriptionIntegranteFilterInput
+  ) {
+    onCreateIntegrante(filter: $filter) {
+      id
+      id_perfil
+      id_banda
+      createdAt
+      updatedAt
+      bandaIntegrantesId
+      __typename
+    }
+  }
+`;
+export const onUpdateIntegrante = /* GraphQL */ `
+  subscription OnUpdateIntegrante(
+    $filter: ModelSubscriptionIntegranteFilterInput
+  ) {
+    onUpdateIntegrante(filter: $filter) {
+      id
+      id_perfil
+      id_banda
+      createdAt
+      updatedAt
+      bandaIntegrantesId
+      __typename
+    }
+  }
+`;
+export const onDeleteIntegrante = /* GraphQL */ `
+  subscription OnDeleteIntegrante(
+    $filter: ModelSubscriptionIntegranteFilterInput
+  ) {
+    onDeleteIntegrante(filter: $filter) {
+      id
+      id_perfil
+      id_banda
+      createdAt
+      updatedAt
+      bandaIntegrantesId
+      __typename
+    }
+  }
+`;
+export const onCreateBanda = /* GraphQL */ `
+  subscription OnCreateBanda($filter: ModelSubscriptionBandaFilterInput) {
+    onCreateBanda(filter: $filter) {
+      id
+      name
+      integrantes {
+        items {
+          id
+          id_perfil
+          id_banda
+          createdAt
+          updatedAt
+          bandaIntegrantesId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateBanda = /* GraphQL */ `
+  subscription OnUpdateBanda($filter: ModelSubscriptionBandaFilterInput) {
+    onUpdateBanda(filter: $filter) {
+      id
+      name
+      integrantes {
+        items {
+          id
+          id_perfil
+          id_banda
+          createdAt
+          updatedAt
+          bandaIntegrantesId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteBanda = /* GraphQL */ `
+  subscription OnDeleteBanda($filter: ModelSubscriptionBandaFilterInput) {
+    onDeleteBanda(filter: $filter) {
+      id
+      name
+      integrantes {
+        items {
+          id
+          id_perfil
+          id_banda
+          createdAt
+          updatedAt
+          bandaIntegrantesId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;

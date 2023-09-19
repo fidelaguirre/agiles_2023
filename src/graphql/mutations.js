@@ -205,3 +205,132 @@ export const deleteUser = /* GraphQL */ `
     }
   }
 `;
+export const createIntegrante = /* GraphQL */ `
+  mutation CreateIntegrante(
+    $input: CreateIntegranteInput!
+    $condition: ModelIntegranteConditionInput
+  ) {
+    createIntegrante(input: $input, condition: $condition) {
+      id
+      id_perfil
+      id_banda
+      createdAt
+      updatedAt
+      bandaIntegrantesId
+      __typename
+    }
+  }
+`;
+export const updateIntegrante = /* GraphQL */ `
+  mutation UpdateIntegrante(
+    $input: UpdateIntegranteInput!
+    $condition: ModelIntegranteConditionInput
+  ) {
+    updateIntegrante(input: $input, condition: $condition) {
+      id
+      id_perfil
+      id_banda
+      createdAt
+      updatedAt
+      bandaIntegrantesId
+      __typename
+    }
+  }
+`;
+export const deleteIntegrante = /* GraphQL */ `
+  mutation DeleteIntegrante(
+    $input: DeleteIntegranteInput!
+    $condition: ModelIntegranteConditionInput
+  ) {
+    deleteIntegrante(input: $input, condition: $condition) {
+      id
+      id_perfil
+      id_banda
+      createdAt
+      updatedAt
+      bandaIntegrantesId
+      __typename
+    }
+  }
+`;
+export const createBanda = /* GraphQL */ `
+  mutation CreateBanda(
+    $input: CreateBandaInput!
+    $condition: ModelBandaConditionInput
+  ) {
+    createBanda(input: $input, condition: $condition) {
+      id
+      name
+      integrantes {
+        items {
+          id
+          id_perfil
+          id_banda
+          createdAt
+          updatedAt
+          bandaIntegrantesId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateBanda = /* GraphQL */ `
+  mutation UpdateBanda(
+    $input: UpdateBandaInput!
+    $condition: ModelBandaConditionInput
+  ) {
+    updateBanda(input: $input, condition: $condition) {
+      id
+      name
+      integrantes {
+        items {
+          id
+          id_perfil
+          id_banda
+          createdAt
+          updatedAt
+          bandaIntegrantesId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteBanda = /* GraphQL */ `
+  mutation DeleteBanda(
+    $input: DeleteBandaInput!
+    $condition: ModelBandaConditionInput
+  ) {
+    deleteBanda(input: $input, condition: $condition) {
+      id
+      name
+      integrantes {
+        items {
+          id
+          id_perfil
+          id_banda
+          createdAt
+          updatedAt
+          bandaIntegrantesId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
