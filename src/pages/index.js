@@ -2,19 +2,8 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
-import { API, graphqlOperation } from 'aws-amplify';
-
-import { createBlog, createBanda } from '../graphql/mutations';
 
 const inter = Inter({ subsets: ['latin'] })
-let resp
-
-async function createNewBlog() {
-  const user = {
-    name: 'Alpha Wolf',
-  };
-  resp = await API.graphql(graphqlOperation(createBanda, { input: user }))
-}
 
 export default function Home() {
   return (
