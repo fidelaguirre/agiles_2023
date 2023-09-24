@@ -1,20 +1,18 @@
 import styles from "./signup.module.css";
 import Image from "next/image";
+import Link from "next/link";
 
 import user_icon from '/public/img/person.png';
 import email_icon from '/public/img/email.png';
 import password_icon from '/public/img/password.png';
-import { useState } from "react";
 
-const Login = () => {
-
-    const [action, setAction] = useState("Regístrate");
+const Signup = () => {
 
   return (
     <>
       <div className={styles.container}>
         <div className={styles.header}>
-          <div className={styles.text}>{action}</div>
+          <div className={styles.text}>Regístrate</div>
           <div className={styles.underline}></div>
         </div>
         <div className={styles.inputs}>
@@ -28,20 +26,20 @@ const Login = () => {
           <div className={styles.input}>
             <Image
                 src={email_icon}
-                alt='User Icon'
+                alt='Email Icon'
             />
             <input type="email" placeholder="Correo" />
           </div>
           <div className={styles.input}>
             <Image
                 src={password_icon}
-                alt='User Icon'
+                alt='Password Icon'
             />
             <input type="password" placeholder="Contraseña" />
           </div>
         </div>
         <div className={styles.forgotpassword}>
-          Ya tienes cuenta? <span>Iniciar Sesión</span>
+          Ya tienes cuenta? <Link href='/login'><span>Iniciar Sesión</span></Link>
         </div>
         <div className={styles.submitcontainer}>
           <div className={styles.submit}>Regístrate</div>
@@ -51,4 +49,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;
