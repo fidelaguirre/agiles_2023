@@ -1,6 +1,7 @@
-import styles from "./login.module.css";
 import Image from "next/image";
 import Link from "next/link";
+import styles from "./login.module.css";
+import Layout from '../components/Layout'
 
 import email_icon from '/public/img/email.png';
 import password_icon from '/public/img/password.png';
@@ -8,7 +9,7 @@ import password_icon from '/public/img/password.png';
 const Login = () => {
 
   return (
-    <>
+    <Layout> 
       <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.text}>Iniciar Sesión</div>
@@ -37,7 +38,7 @@ const Login = () => {
           <div className={styles.submit}>Iniciar Sesión</div>
         </div>
       </div>
-    </>
+    </Layout>
   );
 };
 

@@ -1,6 +1,7 @@
-import styles from "./signup.module.css";
 import Image from "next/image";
 import Link from "next/link";
+import styles from "./signup.module.css";
+import Layout from "../components/Layout";
 
 import user_icon from '/public/img/person.png';
 import email_icon from '/public/img/email.png';
@@ -9,7 +10,7 @@ import password_icon from '/public/img/password.png';
 const Signup = () => {
 
   return (
-    <>
+    <Layout>
       <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.text}>Regístrate</div>
@@ -45,7 +46,7 @@ const Signup = () => {
           <div className={styles.submit}>Regístrate</div>
         </div>
       </div>
-    </>
+    </Layout>
   );
 };
 
