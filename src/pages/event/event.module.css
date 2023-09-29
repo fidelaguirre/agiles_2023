@@ -60,20 +60,6 @@
     font-size: 20px;
 }
 
-.forgotpassword{
-    margin: auto;
-    margin-top: 20px;
-    color: #fff;
-    font-size: 20px;
-}
-
-.forgotpassword span{
-    color: #f7f1e3;
-    cursor: pointer;
-    text-underline-offset: 3px;
-    text-decoration: underline;
-}
-
 .submitcontainer{
     display: flex;
     gap: 30px;

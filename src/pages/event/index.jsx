@@ -1,5 +1,3 @@
-import Image from "next/image";
-import Link from "next/link";
 import styles from "./event.module.css";
 import Layout from '../components/Layout'
 
