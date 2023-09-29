@@ -14,6 +14,9 @@
     "categories": {
       "api": {
         "agiles2023": {}
+      },
+      "auth": {
+        "agiles2023": {}
       }
     }
   }
