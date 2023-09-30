@@ -1,6 +1,104 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getEvento = /* GraphQL */ `
+  query GetEvento($id: ID!) {
+    getEvento(id: $id) {
+      id
+      name
+      date
+      location
+      description
+      bandaID
+      Banda {
+        id
+        name
+        integrantes {
+          nextToken
+          __typename
+        }
+        Eventos {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const listEventos = /* GraphQL */ `
+  query ListEventos(
+    $filter: ModelEventoFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listEventos(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        date
+        location
+        description
+        bandaID
+        Banda {
+          id
+          name
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const eventosByBandaID = /* GraphQL */ `
+  query EventosByBandaID(
+    $bandaID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelEventoFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    eventosByBandaID(
+      bandaID: $bandaID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        name
+        date
+        location
+        description
+        bandaID
+        Banda {
+          id
+          name
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
 export const getBlog = /* GraphQL */ `
   query GetBlog($id: ID!) {
     getBlog(id: $id) {
@@ -139,7 +237,6 @@ export const getIntegrante = /* GraphQL */ `
       id_banda
       createdAt
       updatedAt
-      bandaIntegrantesId
       __typename
     }
   }
@@ -157,7 +254,6 @@ export const listIntegrantes = /* GraphQL */ `
         id_banda
         createdAt
         updatedAt
-        bandaIntegrantesId
         __typename
       }
       nextToken
@@ -173,11 +269,28 @@ export const getBanda = /* GraphQL */ `
       integrantes {
         items {
           id
-          id_perfil
-          id_banda
+          name
+          date
+          location
+          description
+          bandaID
           createdAt
           updatedAt
-          bandaIntegrantesId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      Eventos {
+        items {
+          id
+          name
+          date
+          location
+          description
+          bandaID
+          createdAt
+          updatedAt
           __typename
         }
         nextToken
@@ -200,6 +313,10 @@ export const listBandas = /* GraphQL */ `
         id
         name
         integrantes {
+          nextToken
+          __typename
+        }
+        Eventos {
           nextToken
           __typename
         }

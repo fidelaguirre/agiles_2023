@@ -5,7 +5,7 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { AutocompleteProps, GridProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 export declare type ValidationResponse = {
     hasError: boolean;
@@ -14,14 +14,20 @@ export declare type ValidationResponse = {
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type BandaCreateFormInputValues = {
     name?: string;
+    integrantes?: any[];
+    Eventos?: any[];
 };
 export declare type BandaCreateFormValidationValues = {
     name?: ValidationFunction<string>;
+    integrantes?: ValidationFunction<any>;
+    Eventos?: ValidationFunction<any>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type BandaCreateFormOverridesProps = {
     BandaCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
     name?: PrimitiveOverrideProps<TextFieldProps>;
+    integrantes?: PrimitiveOverrideProps<AutocompleteProps>;
+    Eventos?: PrimitiveOverrideProps<AutocompleteProps>;
 } & EscapeHatchProps;
 export declare type BandaCreateFormProps = React.PropsWithChildren<{
     overrides?: BandaCreateFormOverridesProps | undefined | null;

@@ -1,6 +1,96 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateEvento = /* GraphQL */ `
+  subscription OnCreateEvento($filter: ModelSubscriptionEventoFilterInput) {
+    onCreateEvento(filter: $filter) {
+      id
+      name
+      date
+      location
+      description
+      bandaID
+      Banda {
+        id
+        name
+        integrantes {
+          nextToken
+          __typename
+        }
+        Eventos {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateEvento = /* GraphQL */ `
+  subscription OnUpdateEvento($filter: ModelSubscriptionEventoFilterInput) {
+    onUpdateEvento(filter: $filter) {
+      id
+      name
+      date
+      location
+      description
+      bandaID
+      Banda {
+        id
+        name
+        integrantes {
+          nextToken
+          __typename
+        }
+        Eventos {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteEvento = /* GraphQL */ `
+  subscription OnDeleteEvento($filter: ModelSubscriptionEventoFilterInput) {
+    onDeleteEvento(filter: $filter) {
+      id
+      name
+      date
+      location
+      description
+      bandaID
+      Banda {
+        id
+        name
+        integrantes {
+          nextToken
+          __typename
+        }
+        Eventos {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
 export const onCreateBlog = /* GraphQL */ `
   subscription OnCreateBlog($filter: ModelSubscriptionBlogFilterInput) {
     onCreateBlog(filter: $filter) {
@@ -188,7 +278,6 @@ export const onCreateIntegrante = /* GraphQL */ `
       id_banda
       createdAt
       updatedAt
-      bandaIntegrantesId
       __typename
     }
   }
@@ -203,7 +292,6 @@ export const onUpdateIntegrante = /* GraphQL */ `
       id_banda
       createdAt
       updatedAt
-      bandaIntegrantesId
       __typename
     }
   }
@@ -218,7 +306,6 @@ export const onDeleteIntegrante = /* GraphQL */ `
       id_banda
       createdAt
       updatedAt
-      bandaIntegrantesId
       __typename
     }
   }
@@ -231,11 +318,28 @@ export const onCreateBanda = /* GraphQL */ `
       integrantes {
         items {
           id
-          id_perfil
-          id_banda
+          name
+          date
+          location
+          description
+          bandaID
           createdAt
           updatedAt
-          bandaIntegrantesId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      Eventos {
+        items {
+          id
+          name
+          date
+          location
+          description
+          bandaID
+          createdAt
+          updatedAt
           __typename
         }
         nextToken
@@ -255,11 +359,28 @@ export const onUpdateBanda = /* GraphQL */ `
       integrantes {
         items {
           id
-          id_perfil
-          id_banda
+          name
+          date
+          location
+          description
+          bandaID
           createdAt
           updatedAt
-          bandaIntegrantesId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      Eventos {
+        items {
+          id
+          name
+          date
+          location
+          description
+          bandaID
+          createdAt
+          updatedAt
           __typename
         }
         nextToken
@@ -279,11 +400,28 @@ export const onDeleteBanda = /* GraphQL */ `
       integrantes {
         items {
           id
-          id_perfil
-          id_banda
+          name
+          date
+          location
+          description
+          bandaID
           createdAt
           updatedAt
-          bandaIntegrantesId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      Eventos {
+        items {
+          id
+          name
+          date
+          location
+          description
+          bandaID
+          createdAt
+          updatedAt
           __typename
         }
         nextToken

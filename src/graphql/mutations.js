@@ -1,6 +1,105 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createEvento = /* GraphQL */ `
+  mutation CreateEvento(
+    $input: CreateEventoInput!
+    $condition: ModelEventoConditionInput
+  ) {
+    createEvento(input: $input, condition: $condition) {
+      id
+      name
+      date
+      location
+      description
+      bandaID
+      Banda {
+        id
+        name
+        integrantes {
+          nextToken
+          __typename
+        }
+        Eventos {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateEvento = /* GraphQL */ `
+  mutation UpdateEvento(
+    $input: UpdateEventoInput!
+    $condition: ModelEventoConditionInput
+  ) {
+    updateEvento(input: $input, condition: $condition) {
+      id
+      name
+      date
+      location
+      description
+      bandaID
+      Banda {
+        id
+        name
+        integrantes {
+          nextToken
+          __typename
+        }
+        Eventos {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteEvento = /* GraphQL */ `
+  mutation DeleteEvento(
+    $input: DeleteEventoInput!
+    $condition: ModelEventoConditionInput
+  ) {
+    deleteEvento(input: $input, condition: $condition) {
+      id
+      name
+      date
+      location
+      description
+      bandaID
+      Banda {
+        id
+        name
+        integrantes {
+          nextToken
+          __typename
+        }
+        Eventos {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
 export const createBlog = /* GraphQL */ `
   mutation CreateBlog(
     $input: CreateBlogInput!
@@ -216,7 +315,6 @@ export const createIntegrante = /* GraphQL */ `
       id_banda
       createdAt
       updatedAt
-      bandaIntegrantesId
       __typename
     }
   }
@@ -232,7 +330,6 @@ export const updateIntegrante = /* GraphQL */ `
       id_banda
       createdAt
       updatedAt
-      bandaIntegrantesId
       __typename
     }
   }
@@ -248,7 +345,6 @@ export const deleteIntegrante = /* GraphQL */ `
       id_banda
       createdAt
       updatedAt
-      bandaIntegrantesId
       __typename
     }
   }
@@ -264,11 +360,28 @@ export const createBanda = /* GraphQL */ `
       integrantes {
         items {
           id
-          id_perfil
-          id_banda
+          name
+          date
+          location
+          description
+          bandaID
           createdAt
           updatedAt
-          bandaIntegrantesId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      Eventos {
+        items {
+          id
+          name
+          date
+          location
+          description
+          bandaID
+          createdAt
+          updatedAt
           __typename
         }
         nextToken
@@ -291,11 +404,28 @@ export const updateBanda = /* GraphQL */ `
       integrantes {
         items {
           id
-          id_perfil
-          id_banda
+          name
+          date
+          location
+          description
+          bandaID
           createdAt
           updatedAt
-          bandaIntegrantesId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      Eventos {
+        items {
+          id
+          name
+          date
+          location
+          description
+          bandaID
+          createdAt
+          updatedAt
           __typename
         }
         nextToken
@@ -318,11 +448,28 @@ export const deleteBanda = /* GraphQL */ `
       integrantes {
         items {
           id
-          id_perfil
-          id_banda
+          name
+          date
+          location
+          description
+          bandaID
           createdAt
           updatedAt
-          bandaIntegrantesId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      Eventos {
+        items {
+          id
+          name
+          date
+          location
+          description
+          bandaID
+          createdAt
+          updatedAt
           __typename
         }
         nextToken
