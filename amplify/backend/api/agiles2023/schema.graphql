@@ -1,0 +1,42 @@
+type Evento @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  date: AWSDateTime
+  location: String
+  description: String
+  bandaID: ID! @index(name: "byBanda")
+  Banda: Banda @belongsTo(fields: ["bandaID"])
+}
+
+type Blog @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  posts: [Post] @hasMany
+}
+
+type Post @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  title: String!
+  blog: Blog @belongsTo
+}
+
+type User @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  mail: String!
+  pass: String!
+}
+
+type Integrante @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  id_perfil: Int!
+  id_banda: Int!
+}
+
+type Banda @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  integrantes: [Evento] @hasMany(indexName: "byBanda", fields: ["id"])
+  Eventos: [Evento] @hasMany(indexName: "byBanda", fields: ["id"])
+}
+ 

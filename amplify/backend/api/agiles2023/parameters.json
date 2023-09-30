@@ -1,0 +1,6 @@
+{
+  "AppSyncApiName": "agiles2023",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthModeLastUpdated": "2023-09-28T23:50:06.908Z"
+}
