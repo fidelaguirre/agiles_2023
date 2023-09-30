@@ -1,23 +1,19 @@
 import styles from "./event.module.css";
 import Layout from '../components/Layout'
 
-const event = () => {
-    return(
-    
-      <Layout>
-          <div className={styles.container}>
-            <div className={styles.header}>
-            <div className={styles.text}>Evento</div>
-          </div>
-              
-          <div className={styles.body}>
-            
-          </div>
-
-          </div>
-      </Layout>
-        
-    )
+const eventos = () => {
+  return (
+    <Layout>
+      <div className={styles.container}>
+            <div>
+                <div className={styles.header}>
+                  <div className={styles.text}>Crear Evento</div>
+                  <div className={styles.underline}></div>
+                </div>
+            </div>
+      </div>
+    </Layout>
+  )
 }
 
-export default event
+export default listado
