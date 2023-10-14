@@ -2,10 +2,20 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
+import { getAllBandas } from '../store/banda.js'
+import { useEffect, useState } from 'react'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  const [bandas, setBandas] = useState([]);
+
+  useEffect(() => {
+    getAllBandas().then(response => setBandas(response.data.listBandas.items))
+  }, [])
+
+
+
   return (
     <>
       <Head>
@@ -14,8 +24,11 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {/* <a type='button' id="MutationEventButton" onClick={createNewBlog}>Testeando ando</a>
-      <p id="MutationResult">{resp ? resp.data.createBlog.name : ""}</p> */}
+      { 
+      bandas.map((item, i) => {
+        return <li>{i}, {item.name}</li>
+      })
+      }
       <main className={`${styles.main} ${inter.className}`}>
         <div className={styles.description}>
           <p>
