@@ -19,7 +19,7 @@ import {
 import "@aws-amplify/ui-react/styles.css";
 // -----------
 
-export default function App() {
+export default function App({ Component, pageProps }) {
   const components = {
     Header() {
       const { tokens } = useTheme();
@@ -98,17 +98,9 @@ export default function App() {
       components={components}
       formFields={formFields}
     >
-      {({ signOut, user }) => (
-        <main>
-          <h1>Hola {user.email}</h1>
-          <Menu menuAlign="end">
-            <MenuItem isDisabled onClick={() => alert("Perfil")}>
-              Perfil
-            </MenuItem>
-            <MenuItem onClick={signOut}>Cerrar Sesión</MenuItem>
-          </Menu>
-        </main>
-      )}
+        <>
+          <Component {...pageProps} />
+        </>
     </Authenticator>
   );
 }

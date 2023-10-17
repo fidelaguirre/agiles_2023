@@ -22,8 +22,8 @@ import {
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { fetchByPath, validateField } from "./utils";
 import { API } from "aws-amplify";
-import { listPosts } from "../graphql/queries";
-import { createBlog, updatePost } from "../graphql/mutations";
+import { listBandas } from "../graphql/queries";
+import { createEvento } from "../graphql/mutations";
 function ArrayField({
   items = [],
   onChange,
@@ -179,7 +179,7 @@ function ArrayField({
     </React.Fragment>
   );
 }
-export default function BlogCreateForm(props) {
+export default function EventoCreateForm(props) {
   const {
     clearOnSuccess = true,
     onSuccess,
@@ -192,39 +192,53 @@ export default function BlogCreateForm(props) {
   } = props;
   const initialValues = {
     name: "",
-    posts: [],
+    date: "",
+    location: "",
+    description: "",
+    Banda: undefined,
   };
   const [name, setName] = React.useState(initialValues.name);
-  const [posts, setPosts] = React.useState(initialValues.posts);
-  const [postsLoading, setPostsLoading] = React.useState(false);
-  const [postsRecords, setPostsRecords] = React.useState([]);
+  const [date, setDate] = React.useState(initialValues.date);
+  const [location, setLocation] = React.useState(initialValues.location);
+  const [description, setDescription] = React.useState(
+    initialValues.description
+  );
+  const [Banda, setBanda] = React.useState(initialValues.Banda);
+  const [BandaLoading, setBandaLoading] = React.useState(false);
+  const [BandaRecords, setBandaRecords] = React.useState([]);
   const autocompleteLength = 10;
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setName(initialValues.name);
-    setPosts(initialValues.posts);
-    setCurrentPostsValue(undefined);
-    setCurrentPostsDisplayValue("");
+    setDate(initialValues.date);
+    setLocation(initialValues.location);
+    setDescription(initialValues.description);
+    setBanda(initialValues.Banda);
+    setCurrentBandaValue(undefined);
+    setCurrentBandaDisplayValue("");
     setErrors({});
   };
-  const [currentPostsDisplayValue, setCurrentPostsDisplayValue] =
+  const [currentBandaDisplayValue, setCurrentBandaDisplayValue] =
     React.useState("");
-  const [currentPostsValue, setCurrentPostsValue] = React.useState(undefined);
-  const postsRef = React.createRef();
+  const [currentBandaValue, setCurrentBandaValue] = React.useState(undefined);
+  const BandaRef = React.createRef();
   const getIDValue = {
-    posts: (r) => JSON.stringify({ id: r?.id }),
+    Banda: (r) => JSON.stringify({ id: r?.id }),
   };
-  const postsIdSet = new Set(
-    Array.isArray(posts)
-      ? posts.map((r) => getIDValue.posts?.(r))
-      : getIDValue.posts?.(posts)
+  const BandaIdSet = new Set(
+    Array.isArray(Banda)
+      ? Banda.map((r) => getIDValue.Banda?.(r))
+      : getIDValue.Banda?.(Banda)
   );
   const getDisplayValue = {
-    posts: (r) => `${r?.title ? r?.title + " - " : ""}${r?.id}`,
+    Banda: (r) => `${r?.name ? r?.name + " - " : ""}${r?.id}`,
   };
   const validations = {
-    name: [{ type: "Required" }],
-    posts: [],
+    name: [],
+    date: [],
+    location: [],
+    description: [],
+    Banda: [{ type: "Required", validationMessage: "Banda is required." }],
   };
   const runValidationTasks = async (
     fieldName,
@@ -243,15 +257,32 @@ export default function BlogCreateForm(props) {
     setErrors((errors) => ({ ...errors, [fieldName]: validationResponse }));
     return validationResponse;
   };
-  const fetchPostsRecords = async (value) => {
-    setPostsLoading(true);
+  const convertToLocal = (date) => {
+    const df = new Intl.DateTimeFormat("default", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      calendar: "iso8601",
+      numberingSystem: "latn",
+      hourCycle: "h23",
+    });
+    const parts = df.formatToParts(date).reduce((acc, part) => {
+      acc[part.type] = part.value;
+      return acc;
+    }, {});
+    return `${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}`;
+  };
+  const fetchBandaRecords = async (value) => {
+    setBandaLoading(true);
     const newOptions = [];
     let newNext = "";
     while (newOptions.length < autocompleteLength && newNext != null) {
       const variables = {
         limit: autocompleteLength * 5,
         filter: {
-          or: [{ title: { contains: value } }, { id: { contains: value } }],
+          or: [{ name: { contains: value } }, { id: { contains: value } }],
         },
       };
       if (newNext) {
@@ -259,21 +290,21 @@ export default function BlogCreateForm(props) {
       }
       const result = (
         await API.graphql({
-          query: listPosts.replaceAll("__typename", ""),
+          query: listBandas.replaceAll("__typename", ""),
           variables,
         })
-      )?.data?.listPosts?.items;
+      )?.data?.listBandas?.items;
       var loaded = result.filter(
-        (item) => !postsIdSet.has(getIDValue.posts?.(item))
+        (item) => !BandaIdSet.has(getIDValue.Banda?.(item))
       );
       newOptions.push(...loaded);
       newNext = result.nextToken;
     }
-    setPostsRecords(newOptions.slice(0, autocompleteLength));
-    setPostsLoading(false);
+    setBandaRecords(newOptions.slice(0, autocompleteLength));
+    setBandaLoading(false);
   };
   React.useEffect(() => {
-    fetchPostsRecords("");
+    fetchBandaRecords("");
   }, []);
   return (
     <Grid
@@ -285,7 +316,10 @@ export default function BlogCreateForm(props) {
         event.preventDefault();
         let modelFields = {
           name,
-          posts,
+          date,
+          location,
+          description,
+          Banda,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -325,35 +359,19 @@ export default function BlogCreateForm(props) {
           });
           const modelFieldsToSave = {
             name: modelFields.name,
+            date: modelFields.date,
+            location: modelFields.location,
+            description: modelFields.description,
+            bandaID: modelFields?.Banda?.id,
           };
-          const blog = (
-            await API.graphql({
-              query: createBlog.replaceAll("__typename", ""),
-              variables: {
-                input: {
-                  ...modelFieldsToSave,
-                },
+          await API.graphql({
+            query: createEvento.replaceAll("__typename", ""),
+            variables: {
+              input: {
+                ...modelFieldsToSave,
               },
-            })
-          )?.data?.createBlog;
-          const promises = [];
-          promises.push(
-            ...posts.reduce((promises, original) => {
-              promises.push(
-                API.graphql({
-                  query: updatePost.replaceAll("__typename", ""),
-                  variables: {
-                    input: {
-                      id: original.id,
-                      blogPostsId: blog.id,
-                    },
-                  },
-                })
-              );
-              return promises;
-            }, [])
-          );
-          await Promise.all(promises);
+            },
+          });
           if (onSuccess) {
             onSuccess(modelFields);
           }
@@ -367,12 +385,12 @@ export default function BlogCreateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "BlogCreateForm")}
+      {...getOverrideProps(overrides, "EventoCreateForm")}
       {...rest}
     >
       <TextField
         label="Name"
-        isRequired={true}
+        isRequired={false}
         isReadOnly={false}
         value={name}
         onChange={(e) => {
@@ -380,7 +398,10 @@ export default function BlogCreateForm(props) {
           if (onChange) {
             const modelFields = {
               name: value,
-              posts,
+              date,
+              location,
+              description,
+              Banda,
             };
             const result = onChange(modelFields);
             value = result?.name ?? value;
@@ -395,79 +416,171 @@ export default function BlogCreateForm(props) {
         hasError={errors.name?.hasError}
         {...getOverrideProps(overrides, "name")}
       ></TextField>
-      <ArrayField
-        onChange={async (items) => {
-          let values = items;
+      <TextField
+        label="Date"
+        isRequired={false}
+        isReadOnly={false}
+        type="datetime-local"
+        value={date && convertToLocal(new Date(date))}
+        onChange={(e) => {
+          let value =
+            e.target.value === "" ? "" : new Date(e.target.value).toISOString();
           if (onChange) {
             const modelFields = {
               name,
-              posts: values,
+              date: value,
+              location,
+              description,
+              Banda,
             };
             const result = onChange(modelFields);
-            values = result?.posts ?? values;
+            value = result?.date ?? value;
           }
-          setPosts(values);
-          setCurrentPostsValue(undefined);
-          setCurrentPostsDisplayValue("");
+          if (errors.date?.hasError) {
+            runValidationTasks("date", value);
+          }
+          setDate(value);
         }}
-        currentFieldValue={currentPostsValue}
-        label={"Posts"}
-        items={posts}
-        hasError={errors?.posts?.hasError}
+        onBlur={() => runValidationTasks("date", date)}
+        errorMessage={errors.date?.errorMessage}
+        hasError={errors.date?.hasError}
+        {...getOverrideProps(overrides, "date")}
+      ></TextField>
+      <TextField
+        label="Location"
+        isRequired={false}
+        isReadOnly={false}
+        value={location}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              name,
+              date,
+              location: value,
+              description,
+              Banda,
+            };
+            const result = onChange(modelFields);
+            value = result?.location ?? value;
+          }
+          if (errors.location?.hasError) {
+            runValidationTasks("location", value);
+          }
+          setLocation(value);
+        }}
+        onBlur={() => runValidationTasks("location", location)}
+        errorMessage={errors.location?.errorMessage}
+        hasError={errors.location?.hasError}
+        {...getOverrideProps(overrides, "location")}
+      ></TextField>
+      <TextField
+        label="Description"
+        isRequired={false}
+        isReadOnly={false}
+        value={description}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              name,
+              date,
+              location,
+              description: value,
+              Banda,
+            };
+            const result = onChange(modelFields);
+            value = result?.description ?? value;
+          }
+          if (errors.description?.hasError) {
+            runValidationTasks("description", value);
+          }
+          setDescription(value);
+        }}
+        onBlur={() => runValidationTasks("description", description)}
+        errorMessage={errors.description?.errorMessage}
+        hasError={errors.description?.hasError}
+        {...getOverrideProps(overrides, "description")}
+      ></TextField>
+      <ArrayField
+        lengthLimit={1}
+        onChange={async (items) => {
+          let value = items[0];
+          if (onChange) {
+            const modelFields = {
+              name,
+              date,
+              location,
+              description,
+              Banda: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.Banda ?? value;
+          }
+          setBanda(value);
+          setCurrentBandaValue(undefined);
+          setCurrentBandaDisplayValue("");
+        }}
+        currentFieldValue={currentBandaValue}
+        label={"Banda"}
+        items={Banda ? [Banda] : []}
+        hasError={errors?.Banda?.hasError}
         runValidationTasks={async () =>
-          await runValidationTasks("posts", currentPostsValue)
+          await runValidationTasks("Banda", currentBandaValue)
         }
-        errorMessage={errors?.posts?.errorMessage}
-        getBadgeText={getDisplayValue.posts}
+        errorMessage={errors?.Banda?.errorMessage}
+        getBadgeText={getDisplayValue.Banda}
         setFieldValue={(model) => {
-          setCurrentPostsDisplayValue(
-            model ? getDisplayValue.posts(model) : ""
+          setCurrentBandaDisplayValue(
+            model ? getDisplayValue.Banda(model) : ""
           );
-          setCurrentPostsValue(model);
+          setCurrentBandaValue(model);
         }}
-        inputFieldRef={postsRef}
+        inputFieldRef={BandaRef}
         defaultFieldValue={""}
       >
         <Autocomplete
-          label="Posts"
-          isRequired={false}
+          label="Banda"
+          isRequired={true}
           isReadOnly={false}
-          placeholder="Search Post"
-          value={currentPostsDisplayValue}
-          options={postsRecords.map((r) => ({
-            id: getIDValue.posts?.(r),
-            label: getDisplayValue.posts?.(r),
+          placeholder="Search Banda"
+          value={currentBandaDisplayValue}
+          options={BandaRecords.filter(
+            (r) => !BandaIdSet.has(getIDValue.Banda?.(r))
+          ).map((r) => ({
+            id: getIDValue.Banda?.(r),
+            label: getDisplayValue.Banda?.(r),
           }))}
-          isLoading={postsLoading}
+          isLoading={BandaLoading}
           onSelect={({ id, label }) => {
-            setCurrentPostsValue(
-              postsRecords.find((r) =>
+            setCurrentBandaValue(
+              BandaRecords.find((r) =>
                 Object.entries(JSON.parse(id)).every(
                   ([key, value]) => r[key] === value
                 )
               )
             );
-            setCurrentPostsDisplayValue(label);
-            runValidationTasks("posts", label);
+            setCurrentBandaDisplayValue(label);
+            runValidationTasks("Banda", label);
           }}
           onClear={() => {
-            setCurrentPostsDisplayValue("");
+            setCurrentBandaDisplayValue("");
           }}
           onChange={(e) => {
             let { value } = e.target;
-            fetchPostsRecords(value);
-            if (errors.posts?.hasError) {
-              runValidationTasks("posts", value);
+            fetchBandaRecords(value);
+            if (errors.Banda?.hasError) {
+              runValidationTasks("Banda", value);
             }
-            setCurrentPostsDisplayValue(value);
-            setCurrentPostsValue(undefined);
+            setCurrentBandaDisplayValue(value);
+            setCurrentBandaValue(undefined);
           }}
-          onBlur={() => runValidationTasks("posts", currentPostsDisplayValue)}
-          errorMessage={errors.posts?.errorMessage}
-          hasError={errors.posts?.hasError}
-          ref={postsRef}
+          onBlur={() => runValidationTasks("Banda", currentBandaDisplayValue)}
+          errorMessage={errors.Banda?.errorMessage}
+          hasError={errors.Banda?.hasError}
+          ref={BandaRef}
           labelHidden={true}
-          {...getOverrideProps(overrides, "posts")}
+          {...getOverrideProps(overrides, "Banda")}
         ></Autocomplete>
       </ArrayField>
       <Flex

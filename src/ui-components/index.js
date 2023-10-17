@@ -8,6 +8,8 @@ export { default as BandaCreateForm } from "./BandaCreateForm";
 export { default as BandaUpdateForm } from "./BandaUpdateForm";
 export { default as BlogCreateForm } from "./BlogCreateForm";
 export { default as BlogUpdateForm } from "./BlogUpdateForm";
+export { default as EventoCreateForm } from "./EventoCreateForm";
+export { default as EventoUpdateForm } from "./EventoUpdateForm";
 export { default as IntegranteCreateForm } from "./IntegranteCreateForm";
 export { default as IntegranteUpdateForm } from "./IntegranteUpdateForm";
 export { default as PostCreateForm } from "./PostCreateForm";
