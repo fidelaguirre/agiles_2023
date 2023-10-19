@@ -228,7 +228,7 @@ export default function EventoUpdateForm(props) {
       const record = idProp
         ? (
             await API.graphql({
-              query: getEvento,
+              query: getEvento.replaceAll("__typename", ""),
               variables: { id: idProp },
             })
           )?.data?.getEvento
@@ -312,7 +312,7 @@ export default function EventoUpdateForm(props) {
       }
       const result = (
         await API.graphql({
-          query: listBandas,
+          query: listBandas.replaceAll("__typename", ""),
           variables,
         })
       )?.data?.listBandas?.items;
@@ -387,7 +387,7 @@ export default function EventoUpdateForm(props) {
             bandaID: modelFields?.Banda?.id ?? null,
           };
           await API.graphql({
-            query: updateEvento,
+            query: updateEvento.replaceAll("__typename", ""),
             variables: {
               input: {
                 id: eventoRecord.id,

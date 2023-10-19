@@ -259,7 +259,7 @@ export default function BlogCreateForm(props) {
       }
       const result = (
         await API.graphql({
-          query: listPosts,
+          query: listPosts.replaceAll("__typename", ""),
           variables,
         })
       )?.data?.listPosts?.items;
@@ -328,7 +328,7 @@ export default function BlogCreateForm(props) {
           };
           const blog = (
             await API.graphql({
-              query: createBlog,
+              query: createBlog.replaceAll("__typename", ""),
               variables: {
                 input: {
                   ...modelFieldsToSave,
@@ -341,7 +341,7 @@ export default function BlogCreateForm(props) {
             ...posts.reduce((promises, original) => {
               promises.push(
                 API.graphql({
-                  query: updatePost,
+                  query: updatePost.replaceAll("__typename", ""),
                   variables: {
                     input: {
                       id: original.id,

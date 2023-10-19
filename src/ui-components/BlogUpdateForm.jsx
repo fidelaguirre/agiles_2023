@@ -219,7 +219,7 @@ export default function BlogUpdateForm(props) {
       const record = idProp
         ? (
             await API.graphql({
-              query: getBlog,
+              query: getBlog.replaceAll("__typename", ""),
               variables: { id: idProp },
             })
           )?.data?.getBlog
@@ -283,7 +283,7 @@ export default function BlogUpdateForm(props) {
       }
       const result = (
         await API.graphql({
-          query: listPosts,
+          query: listPosts.replaceAll("__typename", ""),
           variables,
         })
       )?.data?.listPosts?.items;
@@ -372,7 +372,7 @@ export default function BlogUpdateForm(props) {
             }
             promises.push(
               API.graphql({
-                query: updatePost,
+                query: updatePost.replaceAll("__typename", ""),
                 variables: {
                   input: {
                     id: original.id,
@@ -385,7 +385,7 @@ export default function BlogUpdateForm(props) {
           postsToLink.forEach((original) => {
             promises.push(
               API.graphql({
-                query: updatePost,
+                query: updatePost.replaceAll("__typename", ""),
                 variables: {
                   input: {
                     id: original.id,
@@ -400,7 +400,7 @@ export default function BlogUpdateForm(props) {
           };
           promises.push(
             API.graphql({
-              query: updateBlog,
+              query: updateBlog.replaceAll("__typename", ""),
               variables: {
                 input: {
                   id: blogRecord.id,

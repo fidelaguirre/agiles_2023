@@ -46,7 +46,7 @@ export default function IntegranteUpdateForm(props) {
       const record = idProp
         ? (
             await API.graphql({
-              query: getIntegrante,
+              query: getIntegrante.replaceAll("__typename", ""),
               variables: { id: idProp },
             })
           )?.data?.getIntegrante
@@ -118,7 +118,7 @@ export default function IntegranteUpdateForm(props) {
             }
           });
           await API.graphql({
-            query: updateIntegrante,
+            query: updateIntegrante.replaceAll("__typename", ""),
             variables: {
               input: {
                 id: integranteRecord.id,
