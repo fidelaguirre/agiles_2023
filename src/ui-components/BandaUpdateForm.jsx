@@ -235,7 +235,7 @@ export default function BandaUpdateForm(props) {
       const record = idProp
         ? (
             await API.graphql({
-              query: getBanda,
+              query: getBanda.replaceAll("__typename", ""),
               variables: { id: idProp },
             })
           )?.data?.getBanda
@@ -319,7 +319,7 @@ export default function BandaUpdateForm(props) {
       }
       const result = (
         await API.graphql({
-          query: listEventos,
+          query: listEventos.replaceAll("__typename", ""),
           variables,
         })
       )?.data?.listEventos?.items;
@@ -348,7 +348,7 @@ export default function BandaUpdateForm(props) {
       }
       const result = (
         await API.graphql({
-          query: listEventos,
+          query: listEventos.replaceAll("__typename", ""),
           variables,
         })
       )?.data?.listEventos?.items;
@@ -443,7 +443,7 @@ export default function BandaUpdateForm(props) {
             }
             promises.push(
               API.graphql({
-                query: updateEvento,
+                query: updateEvento.replaceAll("__typename", ""),
                 variables: {
                   input: {
                     id: original.id,
@@ -455,7 +455,7 @@ export default function BandaUpdateForm(props) {
           integrantesToLink.forEach((original) => {
             promises.push(
               API.graphql({
-                query: updateEvento,
+                query: updateEvento.replaceAll("__typename", ""),
                 variables: {
                   input: {
                     id: original.id,
@@ -490,7 +490,7 @@ export default function BandaUpdateForm(props) {
             }
             promises.push(
               API.graphql({
-                query: updateEvento,
+                query: updateEvento.replaceAll("__typename", ""),
                 variables: {
                   input: {
                     id: original.id,
@@ -502,7 +502,7 @@ export default function BandaUpdateForm(props) {
           eventosToLink.forEach((original) => {
             promises.push(
               API.graphql({
-                query: updateEvento,
+                query: updateEvento.replaceAll("__typename", ""),
                 variables: {
                   input: {
                     id: original.id,
@@ -516,7 +516,7 @@ export default function BandaUpdateForm(props) {
           };
           promises.push(
             API.graphql({
-              query: updateBanda,
+              query: updateBanda.replaceAll("__typename", ""),
               variables: {
                 input: {
                   id: bandaRecord.id,

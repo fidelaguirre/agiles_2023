@@ -282,7 +282,7 @@ export default function BandaCreateForm(props) {
       }
       const result = (
         await API.graphql({
-          query: listEventos,
+          query: listEventos.replaceAll("__typename", ""),
           variables,
         })
       )?.data?.listEventos?.items;
@@ -311,7 +311,7 @@ export default function BandaCreateForm(props) {
       }
       const result = (
         await API.graphql({
-          query: listEventos,
+          query: listEventos.replaceAll("__typename", ""),
           variables,
         })
       )?.data?.listEventos?.items;
@@ -382,7 +382,7 @@ export default function BandaCreateForm(props) {
           };
           const banda = (
             await API.graphql({
-              query: createBanda,
+              query: createBanda.replaceAll("__typename", ""),
               variables: {
                 input: {
                   ...modelFieldsToSave,
@@ -395,7 +395,7 @@ export default function BandaCreateForm(props) {
             ...integrantes.reduce((promises, original) => {
               promises.push(
                 API.graphql({
-                  query: updateEvento,
+                  query: updateEvento.replaceAll("__typename", ""),
                   variables: {
                     input: {
                       id: original.id,
@@ -410,7 +410,7 @@ export default function BandaCreateForm(props) {
             ...Eventos.reduce((promises, original) => {
               promises.push(
                 API.graphql({
-                  query: updateEvento,
+                  query: updateEvento.replaceAll("__typename", ""),
                   variables: {
                     input: {
                       id: original.id,
