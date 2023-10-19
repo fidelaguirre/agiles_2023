@@ -14,11 +14,6 @@ export default function Home() {
     getAllBandas().then(response => setBandas(response))
   }, [])
 
-  useEffect(() => {
-    eliminarBanda("a313f9fb-eb9d-4821-8e37-ad870d6f904d")
-  }, [])
-  console.log(bandas);
-
 
   return (
     <>
