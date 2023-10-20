@@ -262,7 +262,7 @@ export const listIntegrantes = /* GraphQL */ `
   }
 `;
 export const getBanda = /* GraphQL */ `
-  query GetBanda($id: ID!) {
+  query GetBanda($id: ID) {
     getBanda(id: $id) {
       id
       name

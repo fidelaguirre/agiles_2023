@@ -96,7 +96,7 @@ export default function IntegranteCreateForm(props) {
             }
           });
           await API.graphql({
-            query: createIntegrante,
+            query: createIntegrante.replaceAll("__typename", ""),
             variables: {
               input: {
                 ...modelFields,

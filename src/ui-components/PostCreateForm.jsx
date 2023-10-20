@@ -16,7 +16,6 @@ import {
   Icon,
   ScrollView,
   Text,
-  TextField,
   useTheme,
 } from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
@@ -191,17 +190,14 @@ export default function PostCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    title: "",
     blog: undefined,
   };
-  const [title, setTitle] = React.useState(initialValues.title);
   const [blog, setBlog] = React.useState(initialValues.blog);
   const [blogLoading, setBlogLoading] = React.useState(false);
   const [blogRecords, setBlogRecords] = React.useState([]);
   const autocompleteLength = 10;
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setTitle(initialValues.title);
     setBlog(initialValues.blog);
     setCurrentBlogValue(undefined);
     setCurrentBlogDisplayValue("");
@@ -223,7 +219,6 @@ export default function PostCreateForm(props) {
     blog: (r) => `${r?.name ? r?.name + " - " : ""}${r?.id}`,
   };
   const validations = {
-    title: [{ type: "Required" }],
     blog: [],
   };
   const runValidationTasks = async (
@@ -259,7 +254,7 @@ export default function PostCreateForm(props) {
       }
       const result = (
         await API.graphql({
-          query: listBlogs,
+          query: listBlogs.replaceAll("__typename", ""),
           variables,
         })
       )?.data?.listBlogs?.items;
@@ -284,7 +279,6 @@ export default function PostCreateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          title,
           blog,
         };
         const validationResponses = await Promise.all(
@@ -324,11 +318,10 @@ export default function PostCreateForm(props) {
             }
           });
           const modelFieldsToSave = {
-            title: modelFields.title,
             blogPostsId: modelFields?.blog?.id,
           };
           await API.graphql({
-            query: createPost,
+            query: createPost.replaceAll("__typename", ""),
             variables: {
               input: {
                 ...modelFieldsToSave,
@@ -351,38 +344,12 @@ export default function PostCreateForm(props) {
       {...getOverrideProps(overrides, "PostCreateForm")}
       {...rest}
     >
-      <TextField
-        label="Title"
-        isRequired={true}
-        isReadOnly={false}
-        value={title}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              title: value,
-              blog,
-            };
-            const result = onChange(modelFields);
-            value = result?.title ?? value;
-          }
-          if (errors.title?.hasError) {
-            runValidationTasks("title", value);
-          }
-          setTitle(value);
-        }}
-        onBlur={() => runValidationTasks("title", title)}
-        errorMessage={errors.title?.errorMessage}
-        hasError={errors.title?.hasError}
-        {...getOverrideProps(overrides, "title")}
-      ></TextField>
       <ArrayField
         lengthLimit={1}
         onChange={async (items) => {
           let value = items[0];
           if (onChange) {
             const modelFields = {
-              title,
               blog: value,
             };
             const result = onChange(modelFields);

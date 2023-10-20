@@ -1,4 +1,4 @@
-type Evento @model @auth(rules: [{allow: public}]) {
+type Evento @model @auth(rules: [{ allow: public }]) {
   id: ID!
   name: String
   date: AWSDateTime
@@ -8,35 +8,34 @@ type Evento @model @auth(rules: [{allow: public}]) {
   Banda: Banda @belongsTo(fields: ["bandaID"])
 }
 
-type Blog @model @auth(rules: [{allow: public}]) {
+type Blog @model @auth(rules: [{ allow: public }]) {
   id: ID!
   name: String!
   posts: [Post] @hasMany
 }
 
-type Post @model @auth(rules: [{allow: public}]) {
+type Post @model @auth(rules: [{ allow: public }]) {
   id: ID!
   title: String!
   blog: Blog @belongsTo
 }
 
-type User @model @auth(rules: [{allow: public}]) {
+type User @model @auth(rules: [{ allow: public }]) {
   id: ID!
   name: String!
   mail: String!
   pass: String!
 }
 
-type Integrante @model @auth(rules: [{allow: public}]) {
+type Integrante @model @auth(rules: [{ allow: public }]) {
   id: ID!
   id_perfil: Int!
   id_banda: Int!
 }
 
-type Banda @model @auth(rules: [{allow: public}]) {
+type Banda @model @auth(rules: [{ allow: public }]) {
   id: ID!
-  name: String!
+  name(name: String!): String!
   integrantes: [Evento] @hasMany(indexName: "byBanda", fields: ["id"])
   Eventos: [Evento] @hasMany(indexName: "byBanda", fields: ["id"])
 }
- 
