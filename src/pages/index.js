@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import Layout from "./components/Layout";
 import { getAllBandas,eliminarBanda } from '../store/banda.js'
 import { useEffect, useState } from 'react'
-
+import { MenuItem, Menu } from "@aws-amplify/ui-react";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
