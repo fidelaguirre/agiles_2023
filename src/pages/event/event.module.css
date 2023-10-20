@@ -79,3 +79,18 @@
     font-weight: 700;
     cursor: pointer;
 }
+
+/* Styling the button */
+.button {
+  background-color: #0a73ec; /* Background color */
+  color: white; /* Text color */
+  cursor: pointer; /* Cursor style on hover */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Hover effect */
+.button:hover {
+  background-color: #45a049; /* Change background color on hover */
+}

@@ -30,7 +30,7 @@ const event = () => {
               </div>
             </div>
             <div className={styles.container}><EventoCreateForm/></div>
-            
+            <a className={styles.button} href="/event/event">Ver Eventos</a>
           </div>
 
     )

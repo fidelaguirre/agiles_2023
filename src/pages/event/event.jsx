@@ -15,8 +15,9 @@ const eventos = () => {
     <>
     {
       eventos.map((item, i) => {
-
+        console.log({item})
         return (
+          
           <Layout>
             <div className={styles.div}>
               <li>  {i}, {item.Banda.name}</li>
