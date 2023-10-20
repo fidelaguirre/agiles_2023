@@ -1,11 +1,10 @@
-import Head from 'next/head'
-import { Inter } from 'next/font/google'
-import { Auth } from 'aws-amplify';
-import { Menu, MenuItem } from "@aws-amplify/ui-react";
+import Head from "next/head";
+import { Inter } from "next/font/google";
+import Layout from "./components/Layout";
 import { getAllBandas,eliminarBanda } from '../store/banda.js'
 import { useEffect, useState } from 'react'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
 
@@ -45,5 +44,5 @@ export default function Home() {
             <MenuItem onClick={signOut}>Cerrar Sesión</MenuItem>
           </Menu>
     </>
-  )
+  );
 }

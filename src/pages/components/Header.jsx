@@ -1,26 +1,58 @@
-import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
+import {
+  Menu,
+  MenuItem,
+  Divider,
+  Button,
+  ButtonGroup,
+} from "@aws-amplify/ui-react";
 
 import Image from "next/image";
 import Link from "next/link";
+import { Container, Navbar, Nav } from "react-bootstrap";
+
+import { Auth } from "aws-amplify";
 
 const Header = () => {
+  async function signOut() {
+    try {
+      await Auth.signOut({ global: true });
+    } catch (error) {
+      console.log("error signing out: ", error);
+    }
+  }
+
   return (
     <>
-      <Navbar bg="light" variant={"light"} expand="lg" fixed="top">
-        <Link href="/">
-          <Navbar.Brand>
-            <Image src="/img/logo.svg" width={700} height={100} />
-          </Navbar.Brand>
-        </Link>
-        <Navbar.Toggle aria-controls="navbarScroll" />
-        <Navbar.Collapse id="navbarScroll">
-          <Nav
-            className="mr-auto my-2 my-lg-0"
-            style={{ maxHeight: "100px" }}
-            navbarScroll
-          ></Nav>
-        </Navbar.Collapse>
+      <Navbar bg="light" variant={"light"} expand="xl" fixed="top">
+        <Container fluid>
+          <Link href="/">
+            <Navbar.Brand>
+              <Image src="/img/logo.svg" width={500} height={80} />
+            </Navbar.Brand>
+          </Link>
+          <Nav className="justify-content-end" activeKey="/">
+            <Nav.Link>
+              <ButtonGroup size="large">
+                <Button variation="link" size="large" colorTheme="overlay">
+                  <Link href="/">Inicio</Link>
+                </Button>
+                <Button variation="link" size="large" colorTheme="overlay">
+                  <Link href="/event">Crear Evento</Link>
+                </Button>
+                <Menu menuAlign="end" size="large">
+                  <MenuItem isDisabled onClick={() => alert("Mis Bandas")}>
+                    Mis Bandas
+                  </MenuItem>
+                  <MenuItem isDisabled onClick={() => alert("Configuración")}>
+                    Configuración
+                  </MenuItem>
+                  <Divider />
+                  <MenuItem onClick={signOut}>Cerrar Sesión</MenuItem>
+                </Menu>
+              </ButtonGroup>
+            </Nav.Link>
+          </Nav>
+        </Container>
       </Navbar>
     </>
   );
