@@ -238,7 +238,7 @@ export default function EventoCreateForm(props) {
     date: [],
     location: [],
     description: [],
-    Banda: [],
+    Banda: [{ type: "Required", validationMessage: "Banda is required." }],
   };
   const runValidationTasks = async (
     fieldName,
@@ -290,7 +290,7 @@ export default function EventoCreateForm(props) {
       }
       const result = (
         await API.graphql({
-          query: listBandas,
+          query: listBandas.replaceAll("__typename", ""),
           variables,
         })
       )?.data?.listBandas?.items;
@@ -365,7 +365,7 @@ export default function EventoCreateForm(props) {
             bandaID: modelFields?.Banda?.id,
           };
           await API.graphql({
-            query: createEvento,
+            query: createEvento.replaceAll("__typename", ""),
             variables: {
               input: {
                 ...modelFieldsToSave,
@@ -541,7 +541,7 @@ export default function EventoCreateForm(props) {
       >
         <Autocomplete
           label="Banda"
-          isRequired={false}
+          isRequired={true}
           isReadOnly={false}
           placeholder="Search Banda"
           value={currentBandaDisplayValue}
