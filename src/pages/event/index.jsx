@@ -21,7 +21,7 @@ Amplify.configure(awsconfig);
 const event = () => {
 
     return(
-        <Layout>
+        
           <div className={styles.container}>
             <div>
               <div className={styles.header}>
@@ -29,13 +29,9 @@ const event = () => {
                 <div className={styles.underline}></div>
               </div>
             </div>
-            <ThemeProvider theme={studioTheme}>
-            <EventoCreateForm/>
-            </ThemeProvider>
+            <div className={styles.container}><EventoCreateForm/></div>
+            
           </div>
-
-        </Layout>
-
 
     )
 }
